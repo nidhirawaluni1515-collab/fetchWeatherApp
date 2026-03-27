@@ -19,8 +19,278 @@
   }
 }
 
+/* ─── Color Variables ───────────────────────────────────────── */
+:root {
+  --clr-bg-from:        #0a1628;
+  --clr-bg-mid:         #0d2444;
+  --clr-bg-to:          #0a3d6b;
+
+  --clr-primary:        #2196f3;
+  --clr-primary-hover:  #1976d2;
+  --clr-primary-glow:   rgba(33, 150, 243, 0.4);
+
+  --clr-card-bg:        rgba(13, 71, 161, 0.2);
+  --clr-card-border:    rgba(33, 150, 243, 0.25);
+  --clr-detail-bg:      rgba(33, 150, 243, 0.08);
+
+  --clr-text-heading:   #ffffff;
+  --clr-text-body:      #b3d4f5;
+  --clr-text-muted:     #5b8db8;
+
+  --clr-error-text:     #ef9a9a;
+  --clr-error-bg:       rgba(239, 154, 154, 0.1);
+  --clr-error-border:   rgba(239, 154, 154, 0.3);
+}
+
+/* ─── Reset & Base ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, var(--clr-bg-from) 0%, var(--clr-bg-mid) 50%, var(--clr-bg-to) 100%);
+  min-height: 100vh;
+  color: var(--clr-text-body);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.page {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+
+.header {
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--clr-text-heading);
+  letter-spacing: 1px;
+}
+
+.header p {
+  font-size: 0.9rem;
+  color: var(--clr-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* ─── Search ────────────────────────────────────────────────── */
+.search-section {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--clr-card-border);
+  background: var(--clr-detail-bg);
+  color: var(--clr-text-heading);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.search-input::placeholder {
+  color: var(--clr-text-muted);
+}
+
+.search-input:focus {
+  border-color: var(--clr-primary);
+  background: rgba(33, 150, 243, 0.12);
+}
+
+.btn {
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  border: none;
+  background: var(--clr-primary);
+  color: var(--clr-text-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--clr-primary-hover);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ─── Error ─────────────────────────────────────────────────── */
+.error-msg {
+  text-align: center;
+  color: var(--clr-error-text);
+  background: var(--clr-error-bg);
+  border: 1px solid var(--clr-error-border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* ─── Weather Card ──────────────────────────────────────────── */
+.card {
+  background: var(--clr-card-bg);
+  border: 1px solid var(--clr-card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.city-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--clr-text-heading);
+}
+
+.description {
+  font-size: 0.9rem;
+  color: var(--clr-text-muted);
+  text-transform: capitalize;
+  margin-top: 0.2rem;
+}
+
+.weather-icon {
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(0 0 6px var(--clr-primary-glow));
+}
+
+.temp {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--clr-text-heading);
+  line-height: 1;
+  margin-top: 0.25rem;
+}
+
+.feels-like {
+  font-size: 0.9rem;
+  color: var(--clr-text-muted);
+}
+
+/* ─── Details Grid ──────────────────────────────────────────── */
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+  border-top: 1px solid var(--clr-card-border);
+  padding-top: 1rem;
+}
+
+.detail-item {
+  background: var(--clr-detail-bg);
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.detail-item dt {
+  font-size: 0.72rem;
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-item dd {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--clr-text-body);
+}
+  .home-card {
+          position: relative;
+          z-index: 10;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 24px;
+          text-align: center;
+          padding: 48px 56px;
+          border-radius: 16px;
+          background: rgba(13, 71, 161, 0.2);
+          border: 1px solid rgba(33, 150, 243, 0.25);
+          backdrop-filter: blur(10px);
+          box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        .home-icon {
+          font-size: 64px;
+          line-height: 1;
+          filter: drop-shadow(0 0 12px rgba(33, 150, 243, 0.4));
+        }
+
+        .home-title {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #ffffff;
+          letter-spacing: 1px;
+          margin: 0;
+        }
+
+        .home-btn {
+          padding: 0.75rem 2rem;
+          border-radius: 10px;
+          border: none;
+          background: #2196f3;
+          color: #ffffff;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          text-decoration: none;
+          transition: background 0.2s, transform 0.1s;
+        }
+
+        .home-btn:hover {
+          background: #1976d2;
+        }
+
+        .home-btn:active {
+          transform: scale(0.97);
+        }
+/* ─── Responsive ────────────────────────────────────────────── */
+@media (max-width: 360px) {
+  .details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .temp {
+    font-size: 2.8rem;
+  }
 }
